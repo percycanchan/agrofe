@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    
+    <session-factory name="wsaa_cliente_java">
+        <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="hibernate.connection.password">gem_adm</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@//ARBUE1DB00007:1591/ADTTST08</property>
+        <property name="hibernate.connection.username">gem_adm</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.Oracle9iDialect</property>
+        
+		<!-- Print SQL to stdout. -->
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+    
+        <!-- Hibernate Annotations -->
+        <mapping class="afip.facturaElectronica.db.Factura"/>
+       <!-- <mapping class="afip.facturaElectronica.db.TipoDeComprobante"/>-->
+       
+       <!-- Mapeo de la clase con PK multiple -->
+       <mapping resource="TipoDeComprobante.hbm.xml" /> 
+    </session-factory>
+</hibernate-configuration>

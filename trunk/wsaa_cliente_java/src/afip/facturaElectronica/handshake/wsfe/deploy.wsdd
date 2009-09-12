@@ -1,0 +1,337 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from Service WSDL service -->
+
+  <service name="ServiceSoap" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://ar.gov.afip.dif.facturaelectronica/"/>
+      <parameter name="wsdlServiceElement" value="Service"/>
+      <parameter name="schemaQualified" value="http://ar.gov.afip.dif.facturaelectronica/"/>
+      <parameter name="wsdlServicePort" value="ServiceSoap"/>
+      <parameter name="className" value="afip.facturaElectronica.handshake.wsfe.ServiceSoap_BindingSkeleton"/>
+      <parameter name="wsdlPortType" value="ServiceSoap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+
+      <arrayMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:ArrayOfFEDetalleResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEDetalleResponse[]"
+        innerType="cmp-ns:FEDetalleResponse" xmlns:cmp-ns="http://ar.gov.afip.dif.facturaelectronica/"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:vError"
+        type="java:afip.facturaElectronica.handshake.wsfe.VError"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <arrayMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:ArrayOfFEDetalleRequest"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEDetalleRequest[]"
+        innerType="cmp-ns:FEDetalleRequest" xmlns:cmp-ns="http://ar.gov.afip.dif.facturaelectronica/"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEAuthRequest"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEAuthRequest"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FERecuperaLastCMPResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FERecuperaLastCMPResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FELastCMPtype"
+        type="java:afip.facturaElectronica.handshake.wsfe.FELastCMPtype"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEUltNroResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEUltNroResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEConsultaCAEResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEConsultaCAEResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FECabeceraResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FECabeceraResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEDetalleRequest"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEDetalleRequest"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FECabeceraRequest"
+        type="java:afip.facturaElectronica.handshake.wsfe.FECabeceraRequest"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FERequest"
+        type="java:afip.facturaElectronica.handshake.wsfe.FERequest"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:UltNroResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.UltNroResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEConsultaCAEReq"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEConsultaCAEReq"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FERecuperaQTYResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FERecuperaQTYResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:DummyResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.DummyResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FERecuperaQTY"
+        type="java:afip.facturaElectronica.handshake.wsfe.FERecuperaQTY"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEDetalleResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEDetalleResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+  <service name="ServiceSoap12" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://ar.gov.afip.dif.facturaelectronica/"/>
+      <parameter name="wsdlServiceElement" value="Service"/>
+      <parameter name="schemaQualified" value="http://ar.gov.afip.dif.facturaelectronica/"/>
+      <parameter name="wsdlServicePort" value="ServiceSoap12"/>
+      <parameter name="className" value="afip.facturaElectronica.handshake.wsfe.ServiceSoap12Skeleton"/>
+      <parameter name="wsdlPortType" value="ServiceSoap"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <parameter name="allowedMethods" value="*"/>
+
+      <arrayMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:ArrayOfFEDetalleResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEDetalleResponse[]"
+        innerType="cmp-ns:FEDetalleResponse" xmlns:cmp-ns="http://ar.gov.afip.dif.facturaelectronica/"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:vError"
+        type="java:afip.facturaElectronica.handshake.wsfe.VError"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <arrayMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:ArrayOfFEDetalleRequest"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEDetalleRequest[]"
+        innerType="cmp-ns:FEDetalleRequest" xmlns:cmp-ns="http://ar.gov.afip.dif.facturaelectronica/"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEAuthRequest"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEAuthRequest"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FERecuperaLastCMPResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FERecuperaLastCMPResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FELastCMPtype"
+        type="java:afip.facturaElectronica.handshake.wsfe.FELastCMPtype"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEUltNroResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEUltNroResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEConsultaCAEResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEConsultaCAEResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FECabeceraResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FECabeceraResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEDetalleRequest"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEDetalleRequest"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FECabeceraRequest"
+        type="java:afip.facturaElectronica.handshake.wsfe.FECabeceraRequest"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FERequest"
+        type="java:afip.facturaElectronica.handshake.wsfe.FERequest"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:UltNroResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.UltNroResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEConsultaCAEReq"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEConsultaCAEReq"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FERecuperaQTYResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FERecuperaQTYResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:DummyResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.DummyResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FERecuperaQTY"
+        type="java:afip.facturaElectronica.handshake.wsfe.FERecuperaQTY"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+      <typeMapping
+        xmlns:ns="http://ar.gov.afip.dif.facturaelectronica/"
+        qname="ns:FEDetalleResponse"
+        type="java:afip.facturaElectronica.handshake.wsfe.FEDetalleResponse"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>

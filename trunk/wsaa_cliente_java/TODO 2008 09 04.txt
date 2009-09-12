@@ -1,0 +1,7 @@
+handshake con el WSAA
+
+TODO
+Falta sincronizar clock : time.afip.gov.ar
+
+http://wswhomo.afip.gov.ar/wsfe/service.asmx?op=FERecuperaLastCMPRequest
+

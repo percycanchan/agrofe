@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+   <hibernate-mapping>
+      <class name="afip.facturaElectronica.db.TipoDeComprobante" table="FEL_TIPO_COMPROBANTES">    
+        <meta attribute="class-description">
+           Representa la tabla en que se inscribe cada proceso existente
+        </meta>
+        <composite-id name="comprobantePK" class="afip.facturaElectronica.db.TipoDeComprobantePK">
+          <key-property name="tipo_cbte" column="FEL_TIPO_COMPROBANTE" type="integer"/> 
+          <key-property name="punto_vta" column="FEL_PUNTO_VENTA" type="integer"/>
+        </composite-id>
+        <property name="error" column="FEL_MCA_ERROR"  type="string"/>
+        <property name="estaActivo" column="FEL_MCA_ACTIVO" type="string"/>           
+      </class>
+    </hibernate-mapping> 
