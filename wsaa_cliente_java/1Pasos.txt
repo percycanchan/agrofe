@@ -1,0 +1,4 @@
+luego de hacer el handshake con el wsaa
+
+genero las clases automaticamente
+C:\Documents and Settings\lagromayor\My Documents\FE\JAVA JDKs\jdk1.6.0_05\bin>java org.apache.axis.wsdl.WSDL2Java https://wswhomo.afip.gov.ar/wsfe/service.asmx?WSDL -o itacalc\src -v --server-side --skeletonDeploy true  -p afip.facturaElectronica.handshake.wsfe -t -a -B -H
