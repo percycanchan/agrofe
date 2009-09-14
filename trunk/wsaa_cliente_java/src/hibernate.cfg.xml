@@ -6,9 +6,9 @@
     
     <session-factory name="wsaa_cliente_java">
         <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-        <property name="hibernate.connection.password">gem_adm</property>
-        <property name="hibernate.connection.url">jdbc:oracle:thin:@//ARBUE1DB00007:1591/ADTTST08</property>
-        <property name="hibernate.connection.username">gem_adm</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@//127.0.0.1:1521/XE</property>
+        <property name="hibernate.connection.username">fe_adm</property>
+        <property name="hibernate.connection.password">besogarei</property>
         <property name="hibernate.dialect">org.hibernate.dialect.Oracle9iDialect</property>
         
 		<!-- Print SQL to stdout. -->

@@ -53,6 +53,7 @@ public class Wsaa_test {
 					
 			Integer ultimoCpr=null;
 			ultimoCpr = wsServicios.getUltimoNroComprobante(1007, 6);
+			System.out.println("");
 			System.out.println(ultimoCpr);
 					
 			/*
@@ -63,8 +64,8 @@ public class Wsaa_test {
 	        feDetalle1.setNro_doc( Long.valueOf("30707074570"));
 	        feDetalle1.setTipo_cbte(10);
 	        feDetalle1.setPunto_vta(1008);
-	        feDetalle1.setCbt_desde(20);
-	        feDetalle1.setCbt_hasta(20);
+	        feDetalle1.setCbt_desde(1);
+	        feDetalle1.setCbt_hasta(1);
 	        feDetalle1.setImp_total(1949.77);
 	        feDetalle1.setImp_tot_conc(0.00);
 	        feDetalle1.setImp_neto(1611.38);
@@ -115,7 +116,7 @@ public class Wsaa_test {
 			
 			TipoDeComprobantePK tipoDeComprobante = new TipoDeComprobantePK();
 			tipoDeComprobante.setPunto_vta(1007);
-			tipoDeComprobante.setTipo_cbte(6);
+			tipoDeComprobante.setTipo_cbte(1);
 			
 			List<Factura> facturas = GlobalDAO.getInstance().getFacturaDAO().getFacturas(tipoDeComprobante);
 			
