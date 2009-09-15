@@ -60,6 +60,9 @@ import org.bouncycastle.cms.CMSSignedData;
 import org.bouncycastle.cms.CMSSignedDataGenerator;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import afip.facturaElectronica.handshake.configuracion.FAConfiguracion;
+import afip.facturaElectronica.handshake.exceptions.wsaa.GenerarTicketWSAAException;
+
 import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 
 public class Afip_wsaa_client {
@@ -94,7 +97,8 @@ public class Afip_wsaa_client {
 		//
 		// Create the CMS Message
 		//
-		public static byte [] create_cms (String p12file, String p12pass, String signer, String dstDN, String service, Long TicketTime) {
+		public static byte [] create_cms (String p12file, String p12pass, String signer, String dstDN, String service, Long TicketTime)
+		    throws GenerarTicketWSAAException {
 
 			PrivateKey pKey = null;
 			X509Certificate pCertificate = null;
@@ -148,7 +152,7 @@ public class Afip_wsaa_client {
 			// Create XML Message
 			// 
 			LoginTicketRequest_xml = create_LoginTicketRequest(SignerDN, dstDN, service, TicketTime);
-			
+			FAConfiguracion.getInstance().setXmlWSAA(LoginTicketRequest_xml);
 			//
 			// Create CMS Message
 			//
@@ -172,7 +176,7 @@ public class Afip_wsaa_client {
 				asn1_cms = signed.getEncoded();
 			} 
 			catch (Exception e) {
-				e.printStackTrace();
+				throw new GenerarTicketWSAAException("Error al generar ticket. "+e); 
 			} 
 		
 			return (asn1_cms);

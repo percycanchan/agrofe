@@ -1,9 +1,6 @@
 package afip.facturaElectronica.handshake.configuracion;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Properties;
 
 /**
@@ -22,12 +19,15 @@ public class FAConfiguracion {
 	private static Long TicketTime = null;
 	private static String contenedorCertificados = null;
 	private static Long cuit = null;
-
+	
+	private static String xmlWSAA = null;
+	private static String pathLog = null;
 	/**
 	 * Tiempo en minutos antes de que expire el Token/Sing
 	 */
-	private static Date ttl = null;
+	//private static Date ttl = null;
 	
+
 	/**
 	 * Tiempo de espera de la respuesta de la AFIP. En milisegundos
 	 */
@@ -49,7 +49,7 @@ public class FAConfiguracion {
 	 * La cantidad máxima de facturas q se pueden enviar. Se obtiene del WS
 	 */
 	//TODO : falta setear la cantidad cuando se invoca el servicio
-	private static Integer cantidadMaxAEnviar = 5;
+	private static Integer cantidadMaxAEnviar = 2;
 	
 	/**
 	 * Codigos de Estado de las Facturas
@@ -58,8 +58,14 @@ public class FAConfiguracion {
 	private static Integer codigoEstadoEnviado = 2;
 	private static Integer codigoEstadoError = 3;
 	private static Integer codigoEstadoOK = 4;
+
+	/**
+	 * Ruta donde se almacenan los XML de intercambio
+	 */
+	private static String pathXML = null;
 	
-	
+
+
 	private FAConfiguracion() {
 		super();
 	}
@@ -83,18 +89,18 @@ public class FAConfiguracion {
 				cuit = Long.valueOf(config.getProperty("CUIT"));
 				TicketTime = new Long(config.getProperty("TicketTime"));
 
-				SimpleDateFormat formatoDelTexto = new SimpleDateFormat("mm");
-				ttl = formatoDelTexto.parse(config.getProperty("TTL"));
+				//SimpleDateFormat formatoDelTexto = new SimpleDateFormat("mm");
+				//ttl = formatoDelTexto.parse(config.getProperty("TTL"));
 				
 				tiempoEspera = Integer.decode( config.getProperty("tiempoDeEspera") );
 				codigoServicio= Integer.decode( config.getProperty("codigoServicio") );
 				
+				pathXML = config.getProperty("pathXML");
+				pathLog = config.getProperty("pathLog");
+				
 				estadoAProcesar = 1;
 				
 				// configuro el SSL
-				contenedorCertificados = System.getProperty("java.home")
-						+ "/lib/security/jssecacerts".replace('/',
-								File.separatorChar);
 				contenedorCertificados = "./jssecacerts";
 				
 				System.setProperty("javax.net.ssl.trustStore", contenedorCertificados);
@@ -176,6 +182,30 @@ public class FAConfiguracion {
 		return codigoEstadoOK;
 	}
 	
-	
-		
+	public static String getPathXML() {
+		return pathXML;
+	}
+
+	/**
+	 * Guarda el XML que se envía al WSAA por un tema de debug.
+	 * @return
+	 */
+	public static String getXmlWSAA() {
+		return xmlWSAA;
+	}
+
+	/**
+	 * Devuelve el XML que se envía al WSAA por un tema de debug.
+	 * @return
+	 */
+	public static void setXmlWSAA(String xmlWSAA) {
+		FAConfiguracion.xmlWSAA = xmlWSAA;
+	}
+
+	/**
+	 * Devuelve la ruta donde se almacenan los Logs 	
+	 */
+	public static String getPathLog() {
+		return pathLog;
+	}
 }

@@ -1,10 +1,7 @@
 package afip.facturaElectronica.modelo;
 
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
-
-import sun.awt.SunHints.Value;
 
 import afip.facturaElectronica.db.Factura;
 import afip.facturaElectronica.db.commons.CompletaCAE;
@@ -28,6 +25,7 @@ import afip.facturaElectronica.handshake.wsfe.FEResponse;
 import afip.facturaElectronica.handshake.wsfe.FEUltNroResponse;
 import afip.facturaElectronica.handshake.wsfe.ServiceLocator;
 import afip.facturaElectronica.handshake.wsfe.ServiceSoap12Stub;
+import afip.facturaElectronica.serializacion.Serializer;
 
 /**
  * clase que se instancia para procesar las facturas
@@ -155,6 +153,7 @@ public class Afip_servicios {
 	public FEResponse enviarFacturas(List<Factura> feDetalles)
 			throws NoPudoEnviarLoteException {
 		
+		Serializer xml = new Serializer();
 		ServiceSoap12Stub binding;
 		try {
 			binding = (ServiceSoap12Stub) new ServiceLocator()
@@ -170,7 +169,7 @@ public class Afip_servicios {
 		binding.setTimeout(FAConfiguracion.getInstance().getTiempoEspera());
 		Long proximoID;
 		FEResponse value = null;
-
+		
 		// Seteo los datos de Autenticación. Lo hace al instanciar la clase
 		FEAuthRequest feAuth = new FEAuthRequest();
 		try {
@@ -193,9 +192,13 @@ public class Afip_servicios {
 			feReq.setFecr(feCabecera);
 			feReq.setFedr(feDetallesArray);
 
+			
+			
 			// envío el lote
+			xml.escribirContainer(feReq);
 			value = binding.FEAutRequest(feAuth, feReq);
-
+			xml.escribirContainer(value);
+			
 			// valido que los datos que se encuentran en la respuesta del WS no
 			// haya errores
 			if (!TratamientoErrores.esRespuestaOK(value.getRError()

@@ -13,6 +13,8 @@ import org.dom4j.io.SAXReader;
 
 import afip.facturaElectronica.handshake.configuracion.FAConfiguracion;
 import afip.facturaElectronica.handshake.exceptions.FaltaConfigCabeceraXMLException;
+import afip.facturaElectronica.handshake.exceptions.wsaa.NoPudoConectarWSAAException;
+import afip.facturaElectronica.handshake.exceptions.wsaa.ObtenerTokenSignWSAAException;
 import afip.facturaElectronica.modelo.Afip_datos_wsaa;
 
 public class Afip_wsaa_conectar {
@@ -30,7 +32,7 @@ public class Afip_wsaa_conectar {
 
 	private Long TicketTime = configWSAA.getTicketTime();
 
-	public void conectarWSAA() {
+	public void conectarWSAA() throws NoPudoConectarWSAAException, ObtenerTokenSignWSAAException {
 		this.LoginTicketResponse = null;
 
 		this.configWSAA = FAConfiguracion.getInstance();
@@ -53,11 +55,12 @@ public class Afip_wsaa_conectar {
 		System.out.println("Ticket Generado. Enviandolo.....");
 		
 		// Get LoginTicketResponse by teh invocation of AFIP wsaa
+
 		try {
 			LoginTicketResponse = Afip_wsaa_client.invoke_wsaa(
 					LoginTicketRequest_xml_cms, endpoint);
 		} catch (Exception e2) {
-			e2.printStackTrace();
+			throw new NoPudoConectarWSAAException("Error al enviar XML al WSAA. "+e2);
 		}
 		
 		// Get token & sign from LoginTicketResponse
@@ -81,11 +84,8 @@ public class Afip_wsaa_conectar {
 			
 			System.out.println("Respuesta. Token:"+ token +" . Sign: "+sign+ " . Tiempo de Expiración: "+expirationTime);
 			
-			
-			/*System.out.println("TOKEN: " + afip_datos_wsaa.getToken());
-			System.out.println("SIGN: " + afip_datos_wsaa.getSign());*/
 		} catch (Exception e) {
-			System.out.println(e);
+			throw new ObtenerTokenSignWSAAException("Error al separar datos del ticker WSAA. "+e);
 		}
 	}
 }
