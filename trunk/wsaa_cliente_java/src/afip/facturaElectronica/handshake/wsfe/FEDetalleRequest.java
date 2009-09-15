@@ -61,10 +61,10 @@ public class FEDetalleRequest  implements java.io.Serializable {
            double impto_liq,
            double impto_liq_rni,
            double imp_op_ex,
-           java.lang.String fecha_cbte,
-           java.lang.String fecha_serv_desde,
-           java.lang.String fecha_serv_hasta,
-           java.lang.String fecha_venc_pago) {
+           String fecha_cbte,
+           String fecha_serv_desde,
+           String fecha_serv_hasta,
+           String fecha_venc_pago) {
            this.tipo_doc = tipo_doc;
            this.nro_doc = nro_doc;
            this.tipo_cbte = tipo_cbte;
