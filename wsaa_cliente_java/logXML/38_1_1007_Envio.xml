@@ -1,0 +1,56 @@
+<envioAFIP id="1">
+  <feAuth id="2">
+    <cuit>33709284509</cuit>
+  </feAuth>
+  <facturas id="3">
+    <fecr id="4">
+      <id>38</id>
+      <cantidadreg>2</cantidadreg>
+      <presta__serv>1</presta__serv>
+    </fecr>
+    <fedr id="5">
+      <factura id="6">
+        <fel__id__lote>285</fel__id__lote>
+        <tipo__doc>80</tipo__doc>
+        <nro__doc>30707074570</nro__doc>
+        <tipo__cbte>1</tipo__cbte>
+        <punto__vta>1007</punto__vta>
+        <cbt__desde>329</cbt__desde>
+        <cbt__hasta>329</cbt__hasta>
+        <imp__total>1949.77</imp__total>
+        <imp__tot__conc>0.0</imp__tot__conc>
+        <imp__neto>1611.38</imp__neto>
+        <impto__liq>338.39</impto__liq>
+        <impto__liq__rni>0.0</impto__liq__rni>
+        <imp__op__ex>0.0</imp__op__ex>
+        <fecha__cbte>20091020</fecha__cbte>
+        <fecha__serv__desde>20091001</fecha__serv__desde>
+        <fecha__serv__hasta>20091031</fecha__serv__hasta>
+        <fecha__venc__pago>20091031</fecha__venc__pago>
+        <estado>2</estado>
+        <idEnvio>38</idEnvio>
+      </factura>
+      <factura id="7">
+        <fel__id__lote>286</fel__id__lote>
+        <tipo__doc>80</tipo__doc>
+        <nro__doc>30707074570</nro__doc>
+        <tipo__cbte>1</tipo__cbte>
+        <punto__vta>1007</punto__vta>
+        <cbt__desde>330</cbt__desde>
+        <cbt__hasta>330</cbt__hasta>
+        <imp__total>1949.77</imp__total>
+        <imp__tot__conc>0.0</imp__tot__conc>
+        <imp__neto>1611.38</imp__neto>
+        <impto__liq>338.39</impto__liq>
+        <impto__liq__rni>0.0</impto__liq__rni>
+        <imp__op__ex>0.0</imp__op__ex>
+        <fecha__cbte>20091020</fecha__cbte>
+        <fecha__serv__desde>20091001</fecha__serv__desde>
+        <fecha__serv__hasta>20091031</fecha__serv__hasta>
+        <fecha__venc__pago>20091031</fecha__venc__pago>
+        <estado>2</estado>
+        <idEnvio>38</idEnvio>
+      </factura>
+    </fedr>
+  </facturas>
+</envioAFIP>

@@ -8,6 +8,7 @@
 package afip.facturaElectronica.handshake.wsfe;
 
 public class ServiceLocator extends org.apache.axis.client.Service implements afip.facturaElectronica.handshake.wsfe.Service {
+	private static final long serialVersionUID = -3864551105847852966L;
 
 /**
  * Web Service orientado  al  servicio  de Facturacion electronica
@@ -121,6 +122,7 @@ public class ServiceLocator extends org.apache.axis.client.Service implements af
      * This service has multiple ports for a given interface;
      * the proxy implementation returned may be indeterminate.
      */
+    @SuppressWarnings("unchecked")
     public java.rmi.Remote getPort(Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         try {
             if (afip.facturaElectronica.handshake.wsfe.ServiceSoap_PortType.class.isAssignableFrom(serviceEndpointInterface)) {
@@ -145,6 +147,7 @@ public class ServiceLocator extends org.apache.axis.client.Service implements af
      * If this service has no port for the given interface,
      * then ServiceException is thrown.
      */
+    @SuppressWarnings("unchecked")
     public java.rmi.Remote getPort(javax.xml.namespace.QName portName, Class serviceEndpointInterface) throws javax.xml.rpc.ServiceException {
         if (portName == null) {
             return getPort(serviceEndpointInterface);
@@ -167,8 +170,10 @@ public class ServiceLocator extends org.apache.axis.client.Service implements af
         return new javax.xml.namespace.QName("http://ar.gov.afip.dif.facturaelectronica/", "Service");
     }
 
-    private java.util.HashSet ports = null;
+    @SuppressWarnings("unchecked")
+	private java.util.HashSet ports = null;
 
+    @SuppressWarnings("unchecked")
     public java.util.Iterator getPorts() {
         if (ports == null) {
             ports = new java.util.HashSet();

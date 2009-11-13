@@ -6,9 +6,7 @@ import java.util.List;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import afip.facturaElectronica.db.Factura;
@@ -16,6 +14,7 @@ import afip.facturaElectronica.db.TipoDeComprobantePK;
 import afip.facturaElectronica.db.dao.FacturaDAO;
 import afip.facturaElectronica.handshake.configuracion.FAConfiguracion;
 
+@SuppressWarnings("unchecked")
 public class FacturaDAOHibernate implements FacturaDAO {
 
 	public Factura getFactura(Long id) {
@@ -43,8 +42,9 @@ public class FacturaDAOHibernate implements FacturaDAO {
 			Session sess = HibernateSessionFactory.currentSession();
 			HibernateSessionFactory.beginTransaction();
 
+			//factura = (List<Factura>) sess.createCriteria(Factura.class).list();
 			factura = (List<Factura>) sess.createCriteria(Factura.class).list();
-
+			
 			HibernateSessionFactory.commitTransaction();
 		} catch (HibernateException e) {
 			e.printStackTrace();
@@ -55,12 +55,12 @@ public class FacturaDAOHibernate implements FacturaDAO {
 		return factura;
 	}
 
-	public void saveFactura(Factura factura) {
+	public void updateFactura(Factura factura) {
 		try {
 			Session sess = HibernateSessionFactory.currentSession();
 			HibernateSessionFactory.beginTransaction();
 
-			sess.saveOrUpdate(factura);
+			sess.update(factura); //saveOrUpdate(factura);
 			HibernateSessionFactory.commitTransaction();
 
 		} catch (HibernateException e) {
@@ -79,14 +79,15 @@ public class FacturaDAOHibernate implements FacturaDAO {
 	public void saveFacturas(List<Factura> facturas) {
         try {
             Session sess = HibernateSessionFactory.currentSession();
-            HibernateSessionFactory.beginTransaction();
+            //HibernateSessionFactory.beginTransaction();
+            sess.beginTransaction();
             
             for (Iterator<Factura> factura= facturas.iterator(); factura.hasNext();){
             	Factura factSave = factura.next();
             	/*sess.saveOrUpdate(factSave);	
             	HibernateSessionFactory.commitTransaction();*/
             	
-            	saveFactura(factSave);
+            	updateFactura(factSave);
             	
             }
             
@@ -109,8 +110,7 @@ public class FacturaDAOHibernate implements FacturaDAO {
 			factura = (List<Factura>) sess.createCriteria(Factura.class).add(
 					Restrictions.eq("punto_vta", tipoCpr.getPunto_vta())).add(
 					Restrictions.eq("tipo_cbte", tipoCpr.getTipo_cbte())).add(
-					Restrictions.eq("estado", FAConfiguracion.getInstance()
-							.getEstadoDeProceso())).addOrder(
+					Restrictions.eq("estado", FAConfiguracion.getEstadoDeProceso())).addOrder(
 					Order.asc("cbt_desde")).setMaxResults(
 					FAConfiguracion.getCantidadMaxAEnviar()).list();
 

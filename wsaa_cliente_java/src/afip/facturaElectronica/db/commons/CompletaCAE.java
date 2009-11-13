@@ -4,11 +4,10 @@ import java.util.Iterator;
 import java.util.List;
 
 import afip.facturaElectronica.db.Factura;
+import afip.facturaElectronica.db.dao.GlobalDAO;
 import afip.facturaElectronica.handshake.configuracion.FAConfiguracion;
 import afip.facturaElectronica.handshake.exceptions.NoExisteFacturaEnLaColeccionException;
-import afip.facturaElectronica.handshake.wsfe.FEDetalleRequest;
 import afip.facturaElectronica.handshake.wsfe.FEDetalleResponse;
-import afip.facturaElectronica.handshake.wsfe.FERequest;
 import afip.facturaElectronica.handshake.wsfe.FEResponse;
 
 /**
@@ -79,17 +78,17 @@ public abstract class CompletaCAE {
 	}
 
 	/**
-	 * Recorre la coleccion de facturas que se está por enviar y le setea el campo ID_ENVIO y el estado de enviado
+	 * Recorre la coleccion de facturas que se está por enviar y le setea el campo ID_ENVIO y el estado de enviado. Luego lo refleja en la base
 	 * @param facturas
 	 * @param proximoID
 	 */
-	public static void marcarEnvioFacturas(List<Factura> facturas, Long proximoID) {
+	public static void marcarEnvioFacturas(List<Factura> facturas, long proximoID) {
 		for (Iterator<Factura> facturaIter = facturas.iterator(); facturaIter.hasNext();){
 			Factura factura;
 			factura = facturaIter.next();
 			factura.setIdEnvio(proximoID);
 			factura.setEstado(FAConfiguracion.getCodigoEstadoEnviado());
 		}
-		
+		GlobalDAO.getInstance().getFacturaDAO().saveFacturas(facturas);
 	}
 }

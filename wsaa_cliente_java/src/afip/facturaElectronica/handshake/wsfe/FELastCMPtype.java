@@ -8,7 +8,9 @@
 package afip.facturaElectronica.handshake.wsfe;
 
 public class FELastCMPtype  implements java.io.Serializable {
-    private int ptoVta;
+	private static final long serialVersionUID = 6144076884522014395L;
+
+	private int ptoVta;
 
     private int tipoCbte;
 

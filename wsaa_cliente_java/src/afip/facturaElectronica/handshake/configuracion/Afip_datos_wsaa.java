@@ -1,4 +1,4 @@
-package afip.facturaElectronica.modelo;
+package afip.facturaElectronica.handshake.configuracion;
 
 import java.util.Date;
 
@@ -10,43 +10,43 @@ import afip.facturaElectronica.handshake.exceptions.FaltaConfigCabeceraXMLExcept
  * @author lagromayor
  *
  */
-public abstract class Afip_datos_wsaa {
-	private static String token = null;
-	private static String sign = null;
-	private static Date ttl = null;
-	private static Long cuit = null;
-	private static Integer cantMaxReg = null;
+public class Afip_datos_wsaa {
+	private String token = null;
+	private String sign = null;
+	private Date ttl = null;
+	//private Long cuit = null;
+	private Integer cantMaxReg = null;
 
 
-	public static String getToken() {
+	public String getToken() {
 		if (token == null){
 			throw new FaltaConfigCabeceraXMLException("no se encuentra configurado el Token - WSAA");		
 		}
 		return token;
 	}
 	
-	public static String getSign() {
+	public String getSign() {
 		if (sign == null){
 			throw new FaltaConfigCabeceraXMLException("no se encuentra configurado el Sign - WSAA");	
 		}
 		return sign;
 	}
 	
-	public static Long getCuit() {
+/*	public Long getCuit() {
 		if (cuit == null){
 			throw new FaltaConfigCabeceraXMLException("El cuit del Contribuyente no está configurado");
 		}
 		return cuit;
-	}
+	}*/
 
-	public static Integer getCantMaxReg() {
+	public Integer getCantMaxReg() {
 		if (cantMaxReg == null){
 			throw new FaltaConfigCabeceraXMLException("No se configuró la cantidad máxima de registros que se pueden enviar a la AFIP - WSN");
 		}
 		return cantMaxReg;
 	}
 	
-	public static Date getTTL() {
+	public Date getTTL() {
 		if (ttl == null){
 			throw new FaltaConfigCabeceraXMLException("No se configuró el Tiempo de Expiración del Token/Sign AFIP - WSN");
 		}
@@ -54,23 +54,23 @@ public abstract class Afip_datos_wsaa {
 	}
 	
 	
-	public static void setToken(String ptoken) {
+	public void setToken(String ptoken) {
 		token = ptoken;
 	}
 	
-	public static void setSign(String psign) {
+	public void setSign(String psign) {
 		sign = psign;
 	}
 
-	public static void setCuit(Long pcuit) {
+/*	public void setCuit(Long pcuit) {
 		cuit = pcuit;
-	}
+	}*/
 
-	public static void setCantMaxReg(Integer pCantidad){
+	public void setCantMaxReg(Integer pCantidad){
 		cantMaxReg = pCantidad;
 	}
 
-	public static void setTTL(Date ttl2) {
+	public void setTTL(Date ttl2) {
 		ttl = ttl2;
 	}
 }

@@ -10,6 +10,8 @@ import java.util.Properties;
  */
 public class FAConfiguracion {
 	private static FAConfiguracion instance = null;
+	private static Afip_datos_wsaa datos_wsaa = new Afip_datos_wsaa();
+	
 	private static String endpoint = null;
 	private static String service = null;
 	private static String dstDN = null;
@@ -18,15 +20,10 @@ public class FAConfiguracion {
 	private static String p12pass = null;
 	private static Long TicketTime = null;
 	private static String contenedorCertificados = null;
-	private static Long cuit = null;
+//	private static Long cuit = null;
 	
 	private static String xmlWSAA = null;
 	private static String pathLog = null;
-	/**
-	 * Tiempo en minutos antes de que expire el Token/Sing
-	 */
-	//private static Date ttl = null;
-	
 
 	/**
 	 * Tiempo de espera de la respuesta de la AFIP. En milisegundos
@@ -66,11 +63,13 @@ public class FAConfiguracion {
 	
 
 
+
 	private FAConfiguracion() {
-		super();
+		//super();
 	}
 
-	public static FAConfiguracion getInstance() {
+	//public static FAConfiguracion getInstance() {
+	static {
 		// si no existe la instancia la creo y sete los parámetros
 		if (instance == null) {
 			instance = new FAConfiguracion();
@@ -86,11 +85,8 @@ public class FAConfiguracion {
 				p12file = config.getProperty("keystore");
 				signer = config.getProperty("keystore-signer");
 				p12pass = config.getProperty("keystore-password");
-				cuit = Long.valueOf(config.getProperty("CUIT"));
+//				cuit = Long.valueOf(config.getProperty("CUIT"));
 				TicketTime = new Long(config.getProperty("TicketTime"));
-
-				//SimpleDateFormat formatoDelTexto = new SimpleDateFormat("mm");
-				//ttl = formatoDelTexto.parse(config.getProperty("TTL"));
 				
 				tiempoEspera = Integer.decode( config.getProperty("tiempoDeEspera") );
 				codigoServicio= Integer.decode( config.getProperty("codigoServicio") );
@@ -101,6 +97,7 @@ public class FAConfiguracion {
 				estadoAProcesar = 1;
 				
 				// configuro el SSL
+				//TODO falta agregar configuración de donde toma los certificados
 				contenedorCertificados = "./jssecacerts";
 				
 				System.setProperty("javax.net.ssl.trustStore", contenedorCertificados);
@@ -108,49 +105,50 @@ public class FAConfiguracion {
 				
 			} catch (Exception e1) {
 				e1.printStackTrace();
+				throw new RuntimeException(e1);
 			}
 		}
 
-		return new FAConfiguracion();
+		//return new FAConfiguracion();
 	}
 
-	public String getEndpoint() {
+	public static String getEndpoint() {
 		return endpoint;
 	}
 
-	public String getService() {
+	public static String getService() {
 		return service;
 	}
 
-	public String getDstDN() {
+	public static String getDstDN() {
 		return dstDN;
 	}
 
-	public String getP12file() {
+	public static String getP12file() {
 		return p12file;
 	}
 
-	public String getSigner() {
+	public static String getSigner() {
 		return signer;
 	}
 
-	public String getP12pass() {
+	public static String getP12pass() {
 		return p12pass;
 	}
 
-	public Long getTicketTime() {
+	public static Long getTicketTime() {
 		return TicketTime;
 	}
 
-	public String getContenedorCertificados() {
+	public static String getContenedorCertificados() {
 		return contenedorCertificados;
 	}
 
-	public Long getCuit() {
+/*	public static Long getCuit() {
 		return cuit;
 	}
-
-	public Integer getTiempoEspera(){
+*/
+	public static Integer getTiempoEspera(){
 		return tiempoEspera;
 	}
 
@@ -187,7 +185,7 @@ public class FAConfiguracion {
 	}
 
 	/**
-	 * Guarda el XML que se envía al WSAA por un tema de debug.
+	 * Devuelve el XML que se envía al WSAA por un tema de debug.
 	 * @return
 	 */
 	public static String getXmlWSAA() {
@@ -195,17 +193,22 @@ public class FAConfiguracion {
 	}
 
 	/**
-	 * Devuelve el XML que se envía al WSAA por un tema de debug.
-	 * @return
+	 * Guarda el XML que se envía al WSAA por un tema de debug.
 	 */
 	public static void setXmlWSAA(String xmlWSAA) {
 		FAConfiguracion.xmlWSAA = xmlWSAA;
 	}
 
-	/**
-	 * Devuelve la ruta donde se almacenan los Logs 	
-	 */
 	public static String getPathLog() {
 		return pathLog;
 	}
+
+	public static void setDatos_wsaa(Afip_datos_wsaa datos_wsaa) {
+		FAConfiguracion.datos_wsaa = datos_wsaa;
+	}
+
+	public static Afip_datos_wsaa getDatos_wsaa() {
+		return datos_wsaa;
+	}
+	
 }

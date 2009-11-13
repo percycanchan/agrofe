@@ -1,23 +1,10 @@
 package afip.facturaElectronica.db;
 
-import java.util.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
-import org.hibernate.annotations.NotFound;
-
-import afip.facturaElectronica.db.commons.GenericObject;
 import afip.facturaElectronica.handshake.wsfe.FEDetalleRequest;
-import afip.facturaElectronica.handshake.wsfe.FEDetalleResponse;
 
 /**
  * Clase que contiene la factura a enviar al WS-AFIP
@@ -25,7 +12,9 @@ import afip.facturaElectronica.handshake.wsfe.FEDetalleResponse;
  *
  */
 @Entity(name="FEL_LOTES")
-public class Factura extends FEDetalleRequest{ //extends FEDetalleResponse{//extends GenericObject{
+public class Factura extends FEDetalleRequest{
+
+	private static final long serialVersionUID = 1478569132659463925L;
 	private long fel_id_lote;
 	private int tipo_doc;
     private long nro_doc;

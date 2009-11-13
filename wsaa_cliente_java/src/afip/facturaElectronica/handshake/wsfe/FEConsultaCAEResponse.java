@@ -8,7 +8,9 @@
 package afip.facturaElectronica.handshake.wsfe;
 
 public class FEConsultaCAEResponse  implements java.io.Serializable {
-    private int resultado;
+	private static final long serialVersionUID = -698242845113386459L;
+
+	private int resultado;
 
     private afip.facturaElectronica.handshake.wsfe.VError RError;
 

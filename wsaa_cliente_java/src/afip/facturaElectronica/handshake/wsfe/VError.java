@@ -8,7 +8,9 @@
 package afip.facturaElectronica.handshake.wsfe;
 
 public class VError  implements java.io.Serializable {
-    private int percode;
+	private static final long serialVersionUID = -3189316637762273312L;
+
+	private int percode;
 
     private java.lang.String perrmsg;
 

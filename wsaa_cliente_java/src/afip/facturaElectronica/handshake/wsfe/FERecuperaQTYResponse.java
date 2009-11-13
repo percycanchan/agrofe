@@ -8,7 +8,9 @@
 package afip.facturaElectronica.handshake.wsfe;
 
 public class FERecuperaQTYResponse  implements java.io.Serializable {
-    private afip.facturaElectronica.handshake.wsfe.FERecuperaQTY qty;
+	private static final long serialVersionUID = -7510684324608494671L;
+
+	private afip.facturaElectronica.handshake.wsfe.FERecuperaQTY qty;
 
     private afip.facturaElectronica.handshake.wsfe.VError RError;
 

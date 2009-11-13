@@ -1,12 +1,5 @@
 package afip.facturaElectronica.handshake.exceptions;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.GregorianCalendar;
-
-import afip.facturaElectronica.handshake.configuracion.FAConfiguracion;
 
 /**
  * Exception para modelar errores. No Wrappiable
@@ -14,6 +7,7 @@ import afip.facturaElectronica.handshake.configuracion.FAConfiguracion;
  *
  */
 public class SystemException extends RuntimeException {
+	private static final long serialVersionUID = 6363972660660445549L;
 
 	public SystemException(String message, Throwable obj) {
 		super(message, obj);
@@ -27,13 +21,13 @@ public class SystemException extends RuntimeException {
 		super(obj);
 	}
 	
-	public void grabarException(String excep){
+/*	public void grabarException(String excep){
 		
 		SimpleDateFormat dateformat = new SimpleDateFormat(
 		"yyyy-MM-dd HH:mm:ss"); 
 		
 		try {
-			FileWriter fw = new FileWriter(FAConfiguracion.getInstance().getPathLog()+"logError_"+dateformat +".txt", true);
+			FileWriter fw = new FileWriter(FAConfiguracion.getPathLog()+"logError_"+dateformat +".txt", true);
 			BufferedWriter bw = new BufferedWriter(fw);;
 			PrintWriter salida = new PrintWriter(bw);
 		
@@ -45,5 +39,5 @@ public class SystemException extends RuntimeException {
 					+ ioex.toString());
 		}
 	}
-	
+	*/
 }

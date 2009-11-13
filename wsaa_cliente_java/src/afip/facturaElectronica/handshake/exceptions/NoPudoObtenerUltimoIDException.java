@@ -1,6 +1,7 @@
 package afip.facturaElectronica.handshake.exceptions;
 
 public class NoPudoObtenerUltimoIDException extends GenericModelException{
+	private static final long serialVersionUID = 8560524699812521807L;
 	Integer codError = null;
 	String descError = null;
 	

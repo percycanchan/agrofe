@@ -1,6 +1,7 @@
 package afip.facturaElectronica.handshake.exceptions;
 
 public class NoExisteFacturaEnLaColeccionException extends GenericModelException{
+	private static final long serialVersionUID = 4250318254907753198L;
 	Integer codError = null;
 	String descError = null;
 	

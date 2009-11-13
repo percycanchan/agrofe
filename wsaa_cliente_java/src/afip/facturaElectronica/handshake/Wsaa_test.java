@@ -1,44 +1,49 @@
 package afip.facturaElectronica.handshake;
 
-import java.io.FileInputStream;
-import java.rmi.RemoteException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
-import org.hibernate.cfg.AnnotationConfiguration;
-
-import afip.facturaElectronica.db.Factura;
-import afip.facturaElectronica.db.TipoDeComprobante;
-import afip.facturaElectronica.db.TipoDeComprobantePK;
-import afip.facturaElectronica.db.commons.CompletaCAE;
-import afip.facturaElectronica.db.dao.GlobalDAO;
-import afip.facturaElectronica.handshake.exceptions.NoPudoObtenerCantidadMaximaException;
+import afip.facturaElectronica.conexion.tcp.ServidorTCP;
 import afip.facturaElectronica.handshake.wsaa.Afip_wsaa_conectar;
-import afip.facturaElectronica.handshake.wsfe.*;
-import afip.facturaElectronica.modelo.Afip_datos_wsaa;
 import afip.facturaElectronica.modelo.Afip_servicios;
+import afip.facturaElectronica.modelo.WSHandler;
 
 public class Wsaa_test {
 
 	public static void main(String[] args) {
 
-		try {
-			// genero una instancia y me conecto para obtener el Token y Sign
+		try {			
+			//Me conecto para obtener el Token y Sign
+			//y cargar la configuración
+			Afip_wsaa_conectar.conectarWSAA();
 			
-			Afip_wsaa_conectar wsaa_conectar = new Afip_wsaa_conectar();
-			wsaa_conectar.conectarWSAA();
-
 			Afip_servicios wsServicios = new Afip_servicios();
+			System.out.println(wsServicios.getUltimoID(33709284509L));
+			System.out.println(wsServicios.getUltimoID(23305957909L));
+			
+			String pepe = null;
+			pepe.toString();
+			
+			/*Thread wsHandler = new WSHandler();
+			wsHandler.start();
+			
+		    Thread servidorTCP = new ServidorTCP();
+		    servidorTCP.start();
+
+		    wsHandler.interrupt();
+		    */
 			
 			
-			/*
-			boolean pepe = wsServicios.servicioDisponible();
-			if (pepe){
-				String pae = "a";
-				pae.toString();
-			}
+		    /*
+			Comprobante cprAEnviar = colaDeFacturas.getPendientes(123L);
+			FEResponse dato = wsServicios.enviarFacturas(cprAEnviar);
+			dato.toString();
+	        
+	        CompletaCAE.completarCAE(cprAEnviar.getFacturas(), dato);
+	        cprAEnviar.getFacturas().toString();
+	        
+	        GlobalDAO.getInstance().getFacturaDAO().saveFacturas(cprAEnviar.getFacturas());
 			*/
+			
+			
+			
 			/*
 			Integer cantidad = null;
 			cantidad = wsServicios.getCantidadMaximaRegistros();
@@ -49,13 +54,13 @@ public class Wsaa_test {
 			ultimoID = wsServicios.getUltimoID();
 			ultimoID.toString();
 			System.out.println(ultimoID);
-			*/
+			
 					
 			Integer ultimoCpr=null;
-			ultimoCpr = wsServicios.getUltimoNroComprobante(1007, 6);
+			ultimoCpr = wsServicios.getUltimoNroComprobante(1007, 1);
 			System.out.println("");
 			System.out.println(ultimoCpr);
-					
+					*/
 			/*
 	        List<Factura> feDetalles = new ArrayList<Factura>();
 	        Factura feDetalle1= new Factura();
@@ -110,10 +115,7 @@ public class Wsaa_test {
 
 			}
 			*/
-		
-			
-			
-			
+					/*
 			TipoDeComprobantePK tipoDeComprobante = new TipoDeComprobantePK();
 			tipoDeComprobante.setPunto_vta(1007);
 			tipoDeComprobante.setTipo_cbte(1);
@@ -131,7 +133,8 @@ public class Wsaa_test {
 		        facturas.toString();
 		        
 		        GlobalDAO.getInstance().getFacturaDAO().saveFacturas(facturas);
-			}
+			}*/
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

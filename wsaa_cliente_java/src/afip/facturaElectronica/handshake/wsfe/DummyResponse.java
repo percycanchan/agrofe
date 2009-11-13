@@ -8,7 +8,9 @@
 package afip.facturaElectronica.handshake.wsfe;
 
 public class DummyResponse  implements java.io.Serializable {
-    private java.lang.String appserver;
+	private static final long serialVersionUID = -8749772149475561736L;
+
+	private java.lang.String appserver;
 
     private java.lang.String dbserver;
 

@@ -8,7 +8,9 @@
 package afip.facturaElectronica.handshake.wsfe;
 
 public class FEUltNroResponse  implements java.io.Serializable {
-    private afip.facturaElectronica.handshake.wsfe.UltNroResponse nro;
+	private static final long serialVersionUID = 4366922900973043446L;
+
+	private afip.facturaElectronica.handshake.wsfe.UltNroResponse nro;
 
     private afip.facturaElectronica.handshake.wsfe.VError RError;
 

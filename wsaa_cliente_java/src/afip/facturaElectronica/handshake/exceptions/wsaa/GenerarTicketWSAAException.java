@@ -9,13 +9,11 @@ public class GenerarTicketWSAAException extends SystemException
 	public GenerarTicketWSAAException(String message, Throwable cause)
 	{
 		super(message, cause);
-		grabarException(message);
 	}
 
 	public GenerarTicketWSAAException(String message)
 	{
 		super(message);
-		grabarException(message);
 	}
 	
 }

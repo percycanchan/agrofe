@@ -1,6 +1,7 @@
 package afip.facturaElectronica.handshake.exceptions;
 
 public class NoPudoEnviarLoteException extends GenericModelException{
+	private static final long serialVersionUID = 8211994042800112260L;
 	Integer codError = null;
 	String descError = null;
 	
