@@ -7,8 +7,9 @@
 
 package afip.facturaElectronica.handshake.wsfe;
 
+@SuppressWarnings("unchecked")
 public class ServiceSoap_BindingStub extends org.apache.axis.client.Stub implements afip.facturaElectronica.handshake.wsfe.ServiceSoap_PortType {
-    private java.util.Vector cachedSerClasses = new java.util.Vector();
+	private java.util.Vector cachedSerClasses = new java.util.Vector();
     private java.util.Vector cachedSerQNames = new java.util.Vector();
     private java.util.Vector cachedSerFactories = new java.util.Vector();
     private java.util.Vector cachedDeserFactories = new java.util.Vector();
@@ -124,14 +125,14 @@ public class ServiceSoap_BindingStub extends org.apache.axis.client.Stub impleme
             javax.xml.namespace.QName qName2;
             java.lang.Class beansf = org.apache.axis.encoding.ser.BeanSerializerFactory.class;
             java.lang.Class beandf = org.apache.axis.encoding.ser.BeanDeserializerFactory.class;
-            java.lang.Class enumsf = org.apache.axis.encoding.ser.EnumSerializerFactory.class;
-            java.lang.Class enumdf = org.apache.axis.encoding.ser.EnumDeserializerFactory.class;
-            java.lang.Class arraysf = org.apache.axis.encoding.ser.ArraySerializerFactory.class;
-            java.lang.Class arraydf = org.apache.axis.encoding.ser.ArrayDeserializerFactory.class;
-            java.lang.Class simplesf = org.apache.axis.encoding.ser.SimpleSerializerFactory.class;
-            java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
-            java.lang.Class simplelistsf = org.apache.axis.encoding.ser.SimpleListSerializerFactory.class;
-            java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
+            //java.lang.Class enumsf = org.apache.axis.encoding.ser.EnumSerializerFactory.class;
+            //java.lang.Class enumdf = org.apache.axis.encoding.ser.EnumDeserializerFactory.class;
+            //java.lang.Class arraysf = org.apache.axis.encoding.ser.ArraySerializerFactory.class;
+            //java.lang.Class arraydf = org.apache.axis.encoding.ser.ArrayDeserializerFactory.class;
+            //java.lang.Class simplesf = org.apache.axis.encoding.ser.SimpleSerializerFactory.class;
+            //java.lang.Class simpledf = org.apache.axis.encoding.ser.SimpleDeserializerFactory.class;
+            //java.lang.Class simplelistsf = org.apache.axis.encoding.ser.SimpleListSerializerFactory.class;
+            //java.lang.Class simplelistdf = org.apache.axis.encoding.ser.SimpleListDeserializerFactory.class;
             qName = new javax.xml.namespace.QName("http://ar.gov.afip.dif.facturaelectronica/", "ArrayOfFEDetalleRequest");
             cachedSerQNames.add(qName);
             cls = afip.facturaElectronica.handshake.wsfe.FEDetalleRequest[].class;

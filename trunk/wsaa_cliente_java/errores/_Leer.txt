@@ -1,0 +1,2 @@
+Acá se guardan los errores ocurridos. 
+Se generá por ahora para guardar los errores que ocurren al enviar el XML al WSAA

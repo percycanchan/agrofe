@@ -1,30 +1,27 @@
 package afip.facturaElectronica.db.dao.hibernate;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
 import afip.facturaElectronica.db.TipoDeComprobante;
-import afip.facturaElectronica.db.TipoDeComprobantePK;
 import afip.facturaElectronica.db.dao.TipoDeComprobanteDAO;
+import afip.facturaElectronica.modelo.Comprobante;
 
 
 public class TipoDeComprobanteDAOHibernate implements TipoDeComprobanteDAO {
 	
-	public TipoDeComprobante getTipoDeComprobante(int punto_vta, int tipo_cbte) {
+	public TipoDeComprobante getTipoDeComprobante(Comprobante cpr) {
 		TipoDeComprobante tipoDeComprobante = null;
 		try {
             Session sess = HibernateSessionFactory.currentSession();
             HibernateSessionFactory.beginTransaction();
             
-            TipoDeComprobantePK tipoCprPK = new TipoDeComprobantePK();
-            tipoCprPK.setPunto_vta(punto_vta);
-            tipoCprPK.setTipo_cbte(tipo_cbte);
-			tipoDeComprobante = (TipoDeComprobante) sess.createCriteria(TipoDeComprobante.class).add(Restrictions.idEq(tipoCprPK)).uniqueResult();
+			tipoDeComprobante = (TipoDeComprobante) sess.createCriteria(TipoDeComprobante.class)
+			                                            .add(Restrictions.idEq(cpr.getTipoDeComprobante().getComprobantePK()))
+			                                            .uniqueResult();
            
             HibernateSessionFactory.commitTransaction();
 	    } catch(HibernateException e) {
@@ -36,6 +33,7 @@ public class TipoDeComprobanteDAOHibernate implements TipoDeComprobanteDAO {
 	    return tipoDeComprobante;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<TipoDeComprobante> getTipoDeComprobantes() {
 		List<TipoDeComprobante> tipoDeComprobantes = null;
 		try {

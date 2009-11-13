@@ -152,7 +152,7 @@ public class Afip_wsaa_client {
 			// Create XML Message
 			// 
 			LoginTicketRequest_xml = create_LoginTicketRequest(SignerDN, dstDN, service, TicketTime);
-			FAConfiguracion.getInstance().setXmlWSAA(LoginTicketRequest_xml);
+			FAConfiguracion.setXmlWSAA(LoginTicketRequest_xml);
 			//
 			// Create CMS Message
 			//
@@ -210,7 +210,7 @@ public class Afip_wsaa_client {
 				+"</header>"
 				+"<service>" + service + "</service>"
 				+"</loginTicketRequest>";
-			
+			LoginTicketRequest_xml.toString();
 			return (LoginTicketRequest_xml);
 		}
 	}

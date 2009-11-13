@@ -8,7 +8,9 @@
 package afip.facturaElectronica.handshake.wsfe;
 
 public class FERecuperaLastCMPResponse  implements java.io.Serializable {
-    private int cbte_nro;
+	private static final long serialVersionUID = 28256730830247371L;
+
+	private int cbte_nro;
 
     private afip.facturaElectronica.handshake.wsfe.VError RError;
 

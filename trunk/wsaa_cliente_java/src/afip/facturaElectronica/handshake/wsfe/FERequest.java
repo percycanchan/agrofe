@@ -8,7 +8,9 @@
 package afip.facturaElectronica.handshake.wsfe;
 
 public class FERequest  implements java.io.Serializable {
-    private afip.facturaElectronica.handshake.wsfe.FECabeceraRequest fecr;
+	private static final long serialVersionUID = 4292327414120214105L;
+
+	private afip.facturaElectronica.handshake.wsfe.FECabeceraRequest fecr;
 
     private afip.facturaElectronica.handshake.wsfe.FEDetalleRequest[] fedr;
 

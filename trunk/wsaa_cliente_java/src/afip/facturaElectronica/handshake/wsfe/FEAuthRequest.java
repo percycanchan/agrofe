@@ -7,10 +7,12 @@
 
 package afip.facturaElectronica.handshake.wsfe;
 
-import afip.facturaElectronica.modelo.Afip_datos_wsaa;
+import afip.facturaElectronica.handshake.configuracion.FAConfiguracion;
 
 public class FEAuthRequest  implements java.io.Serializable {
-    private java.lang.String token;
+	private static final long serialVersionUID = -6233166783729634745L;
+
+	private java.lang.String token;
 
     private java.lang.String sign;
 
@@ -19,22 +21,15 @@ public class FEAuthRequest  implements java.io.Serializable {
     /**
      * Genera la Cabecera de Autenticación con los datos autmaticamente
      */
-    public FEAuthRequest() {
-		this.cuit= Afip_datos_wsaa.getCuit();
-		this.sign = Afip_datos_wsaa.getSign();
-		this.token = Afip_datos_wsaa.getToken();
+    public FEAuthRequest(long cuit) {
+		this.cuit= cuit;
+		this.sign = FAConfiguracion.getDatos_wsaa().getSign();
+		this.token = FAConfiguracion.getDatos_wsaa().getToken();
     	
     }
-
-    public FEAuthRequest(
-           java.lang.String token,
-           java.lang.String sign,
-           long cuit) {
-           this.token = token;
-           this.sign = sign;
-           this.cuit = cuit;
-    }
-
+    
+    @SuppressWarnings("unused")
+	private FEAuthRequest(){}
 
     /**
      * Gets the token value for this FEAuthRequest.

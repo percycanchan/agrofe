@@ -13,7 +13,9 @@ package afip.facturaElectronica.handshake.wsfe;
  *
  */
 public class FEDetalleRequest  implements java.io.Serializable {
-    private int tipo_doc;
+	private static final long serialVersionUID = -7324003877862667473L;
+
+	private int tipo_doc;
 
     private long nro_doc;
 

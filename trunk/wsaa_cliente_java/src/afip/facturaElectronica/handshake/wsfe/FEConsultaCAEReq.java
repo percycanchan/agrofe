@@ -8,7 +8,9 @@
 package afip.facturaElectronica.handshake.wsfe;
 
 public class FEConsultaCAEReq  implements java.io.Serializable {
-    private long cuit_emisor;
+	private static final long serialVersionUID = -9132550134557358619L;
+
+	private long cuit_emisor;
 
     private int tipo_cbte;
 

@@ -6,6 +6,7 @@ import afip.facturaElectronica.db.dao.hibernate.TipoDeComprobanteDAOHibernate;
 
 
 public class GlobalDAO implements Serializable {
+	private static final long serialVersionUID = 6748716944007557815L;
 	// ----------------------------------------------------------- Variables De Instancia
 	private static GlobalDAO instance = null;
 	private FacturaDAO facturaDAO = null;

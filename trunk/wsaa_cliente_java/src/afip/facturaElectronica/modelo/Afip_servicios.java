@@ -1,10 +1,8 @@
 package afip.facturaElectronica.modelo;
 
 import java.rmi.RemoteException;
-import java.util.List;
 
-import afip.facturaElectronica.db.Factura;
-import afip.facturaElectronica.db.commons.CompletaCAE;
+import afip.facturaElectronica.db.TipoDeComprobante;
 import afip.facturaElectronica.handshake.configuracion.FAConfiguracion;
 import afip.facturaElectronica.handshake.exceptions.FaltaConfigCabeceraXMLException;
 import afip.facturaElectronica.handshake.exceptions.NoPudoEnviarLoteException;
@@ -12,6 +10,7 @@ import afip.facturaElectronica.handshake.exceptions.NoPudoObtenerCantidadMaximaE
 import afip.facturaElectronica.handshake.exceptions.NoPudoObtenerUltimoIDException;
 import afip.facturaElectronica.handshake.exceptions.NoPudoObtenerUltimoNumeroFacturaException;
 import afip.facturaElectronica.handshake.exceptions.SystemException;
+import afip.facturaElectronica.handshake.exceptions.servicioNoDisponibleException;
 import afip.facturaElectronica.handshake.tratamientoErrores.TratamientoErrores;
 import afip.facturaElectronica.handshake.wsfe.DummyResponse;
 import afip.facturaElectronica.handshake.wsfe.FEAuthRequest;
@@ -34,14 +33,16 @@ import afip.facturaElectronica.serializacion.Serializer;
  * 
  */
 public class Afip_servicios {
-
+	//actúa como secuenciador del ID que se va a enviar
+	Long proximoID = null;
+	
 	/**
 	 * Obtiene la cantidad de facturas que puede recibir la AFIP
 	 * 
 	 * @return
 	 * @throws NoPudoObtenerCantidadMaximaException
 	 */
-	public Integer getCantidadMaximaRegistros()
+	public Integer getCantidadMaximaRegistros(long cuit)
 			throws NoPudoObtenerCantidadMaximaException {
 		ServiceSoap12Stub binding;
 		try {
@@ -55,12 +56,12 @@ public class Afip_servicios {
 		}
 
 		// Time out after a minute
-		binding.setTimeout(FAConfiguracion.getInstance().getTiempoEspera());
+		binding.setTimeout(FAConfiguracion.getTiempoEspera());
 
 		// Test operation
 		FERecuperaQTYResponse value = null;
 		try {
-			FEAuthRequest feAuthReq = new FEAuthRequest();
+			FEAuthRequest feAuthReq = new FEAuthRequest(cuit);
 
 			value = binding.FERecuperaQTYRequest(feAuthReq);
 
@@ -85,13 +86,13 @@ public class Afip_servicios {
 	}
 
 	/**
-	 * Retorna el último ID enviado a la AFIP. Se usa como secuenciador en el
+	 * Retorna el último ID enviado a la AFIP para una empresa determinada. Se usa como secuenciador en el
 	 * envío de lotes
 	 * 
 	 * @return
 	 * @throws NoPudoObtenerUltimoIDException
 	 */
-	public Long getUltimoID() throws NoPudoObtenerUltimoIDException {
+	public Long getUltimoID(long cuit) throws NoPudoObtenerUltimoIDException {
 		ServiceSoap12Stub binding;
 		try {
 			binding = (ServiceSoap12Stub) new ServiceLocator()
@@ -104,12 +105,12 @@ public class Afip_servicios {
 		}
 
 		// Time out after a minute
-		binding.setTimeout(FAConfiguracion.getInstance().getTiempoEspera());
+		binding.setTimeout(FAConfiguracion.getTiempoEspera());
 
 		FEUltNroResponse value = null;
 		try {
 
-			FEAuthRequest feAuthReq = new FEAuthRequest();
+			FEAuthRequest feAuthReq = new FEAuthRequest(cuit);
 
 			value = binding.FEUltNroRequest(feAuthReq);
 
@@ -134,13 +135,18 @@ public class Afip_servicios {
 
 	/**
 	 * Retorna el próximo ID enviado a la AFIP. Se usa como secuenciador en el
-	 * envío de lotes
+	 * envío de lotes. Por cada llamada se incrementa en 1
 	 * 
 	 * @return
 	 * @throws NoPudoObtenerUltimoIDException
 	 */
-	public Long getProximoID() throws NoPudoObtenerUltimoIDException {
-		return getUltimoID() + 1;
+	public long getProximoID(long cuit) throws NoPudoObtenerUltimoIDException {
+		if (proximoID == null){
+			proximoID = getUltimoID(cuit)+1;
+			return proximoID;
+		}
+		proximoID += 1;
+		return proximoID;
 	}
 
 	/**
@@ -150,8 +156,10 @@ public class Afip_servicios {
 	 * @param feDetalles
 	 * @return
 	 */
-	public FEResponse enviarFacturas(List<Factura> feDetalles)
+	public FEResponse enviarFacturas(Comprobante cpr, long idEnvio) //long cuit , List<Factura> feDetalles)
 			throws NoPudoEnviarLoteException {
+		
+		int cantFacturas;
 		
 		Serializer xml = new Serializer();
 		ServiceSoap12Stub binding;
@@ -166,19 +174,19 @@ public class Afip_servicios {
 		}
 
 		// Time out after a minute
-		binding.setTimeout(FAConfiguracion.getInstance().getTiempoEspera());
+		binding.setTimeout(FAConfiguracion.getTiempoEspera());
 		Long proximoID;
 		FEResponse value = null;
 		
 		// Seteo los datos de Autenticación. Lo hace al instanciar la clase
-		FEAuthRequest feAuth = new FEAuthRequest();
+		FEAuthRequest feAuth = new FEAuthRequest(cpr.getCuit());
 		try {
-			proximoID = getProximoID();
-			CompletaCAE.marcarEnvioFacturas(feDetalles, proximoID);
+			cantFacturas = cpr.getFacturas().size();
+			proximoID = idEnvio;
 			
 			// Seteo la cabecera
 			FECabeceraRequest feCabecera = new FECabeceraRequest();
-			feCabecera.setCantidadreg(feDetalles.size());
+			feCabecera.setCantidadreg(cantFacturas);
 			feCabecera.setId(proximoID);
 			feCabecera.setPresta_serv(FAConfiguracion.getCodigoServicio());
 
@@ -186,8 +194,8 @@ public class Afip_servicios {
 			FERequest feReq = new FERequest();
 
 			FEDetalleRequest feDetallesArray[];
-			feDetallesArray = new FEDetalleRequest[feDetalles.size()];
-			feDetalles.toArray(feDetallesArray);
+			feDetallesArray = new FEDetalleRequest[cantFacturas];
+			cpr.getFacturas().toArray(feDetallesArray);
 
 			feReq.setFecr(feCabecera);
 			feReq.setFedr(feDetallesArray);
@@ -195,7 +203,7 @@ public class Afip_servicios {
 			
 			
 			// envío el lote
-			xml.escribirContainer(feReq);
+			xml.escribirContainer(feAuth, feReq);
 			value = binding.FEAutRequest(feAuth, feReq);
 			xml.escribirContainer(value);
 			
@@ -210,16 +218,12 @@ public class Afip_servicios {
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			throw new NoPudoEnviarLoteException(e.toString());
-		} catch (NoPudoObtenerUltimoIDException e) {
-			e.printStackTrace();
-			throw new NoPudoEnviarLoteException(e.toString());
 		}
 
 		return value;
 	}
 
-	public Integer getUltimoNroComprobante(Integer sucursal,
-			Integer tipoComprobante)
+	public Integer getUltimoNroComprobante(TipoDeComprobante comprobante)
 			throws NoPudoObtenerUltimoNumeroFacturaException {
 		ServiceSoap12Stub binding;
 		try {
@@ -232,11 +236,12 @@ public class Afip_servicios {
 					"JAX-RPC ServiceException caught: " + jre);
 		}
 		// Time out after a minute
-		binding.setTimeout(FAConfiguracion.getInstance().getTiempoEspera());
+		binding.setTimeout(FAConfiguracion.getTiempoEspera());
 
 		FERecuperaLastCMPResponse value = null;
-		FEAuthRequest feAut = new FEAuthRequest();
-		FELastCMPtype ultimoCpr = new FELastCMPtype(sucursal, tipoComprobante);
+		FEAuthRequest feAut = new FEAuthRequest(comprobante.getComprobantePK().getCuit());
+		FELastCMPtype ultimoCpr = new FELastCMPtype(comprobante.getComprobantePK().getPunto_vta()
+				                                   ,comprobante.getComprobantePK().getTipo_cbte());
 
 		try {
 			value = binding.FERecuperaLastCMPRequest(feAut, ultimoCpr);
@@ -258,9 +263,9 @@ public class Afip_servicios {
 		return value.getCbte_nro();
 	}
 
-	@SuppressWarnings("null")
-	public boolean servicioDisponible() {
+	public void servicioDisponible() throws servicioNoDisponibleException {
 		ServiceSoap12Stub binding;
+
 		try {
 			binding = (ServiceSoap12Stub) new ServiceLocator()
 					.getServiceSoap12();
@@ -271,18 +276,42 @@ public class Afip_servicios {
 		}
 		
 		DummyResponse value = null;
-		value.getAppserver();
+		//value.getAppserver();
 		try {
 			// Time out after a minute
-			binding.setTimeout(FAConfiguracion.getInstance().getTiempoEspera());
+			binding.setTimeout(FAConfiguracion.getTiempoEspera());
 
 			value = binding.FEDummy();
-			// TBD - validate results
+			
+			if (   !(value.getAppserver().equalsIgnoreCase("OK"))
+				|| !(value.getAuthserver().equalsIgnoreCase("OK"))
+				|| !(value.getDbserver().equalsIgnoreCase("OK"))
+			   )
+			{
+				throw new servicioNoDisponibleException("Aplicación: "+value.getAppserver()
+						                               +" Autenticación: "+value.getAuthserver()
+						                               +" Base de Datos: "+value.getDbserver()
+						                               );
+			}
 		} catch (RemoteException e) {
 			e.printStackTrace();
 			throw new SystemException(e.toString());
 		}
 
-		return true;
+		//return estaDisponible;
+	}
+
+	/**
+	 * Encargado de realizar la inicialización del servicio
+	 * @throws servicioNoDisponibleException 
+	 */
+	public void inicializar() throws servicioNoDisponibleException {
+		// verifico que el sevicio de WS esté Disponible
+		servicioDisponible();
+		
+		// TODO: debería verificar si el ID del envío es general (el mismo secuenciador 
+		// para todas las empresas) o es un ID individual (uno por empresa)
+		//getProximoID(cuit)
+		
 	}
 }

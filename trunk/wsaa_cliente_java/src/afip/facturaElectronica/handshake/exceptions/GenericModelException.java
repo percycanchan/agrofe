@@ -6,6 +6,7 @@ package afip.facturaElectronica.handshake.exceptions;
  *
  */
 public abstract class GenericModelException extends Exception {
+	private static final long serialVersionUID = -567623999630063496L;
 
 	public GenericModelException(String message, Throwable cause) {
 		super(message, cause);

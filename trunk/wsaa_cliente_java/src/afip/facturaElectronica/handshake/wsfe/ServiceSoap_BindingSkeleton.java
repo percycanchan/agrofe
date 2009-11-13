@@ -7,8 +7,10 @@
 
 package afip.facturaElectronica.handshake.wsfe;
 
+@SuppressWarnings("unchecked")
 public class ServiceSoap_BindingSkeleton implements afip.facturaElectronica.handshake.wsfe.ServiceSoap_PortType, org.apache.axis.wsdl.Skeleton {
-    private afip.facturaElectronica.handshake.wsfe.ServiceSoap_PortType impl;
+	private static final long serialVersionUID = -467647510082715099L;
+	private afip.facturaElectronica.handshake.wsfe.ServiceSoap_PortType impl;
     private static java.util.Map _myOperations = new java.util.Hashtable();
     private static java.util.Collection _myOperationsList = new java.util.ArrayList();
 
@@ -28,7 +30,7 @@ public class ServiceSoap_BindingSkeleton implements afip.facturaElectronica.hand
 
     static {
         org.apache.axis.description.OperationDesc _oper;
-        org.apache.axis.description.FaultDesc _fault;
+        //org.apache.axis.description.FaultDesc _fault;
         org.apache.axis.description.ParameterDesc [] _params;
         _params = new org.apache.axis.description.ParameterDesc [] {
             new org.apache.axis.description.ParameterDesc(new javax.xml.namespace.QName("http://ar.gov.afip.dif.facturaelectronica/", "argAuth"), org.apache.axis.description.ParameterDesc.IN, new javax.xml.namespace.QName("http://ar.gov.afip.dif.facturaelectronica/", "FEAuthRequest"), afip.facturaElectronica.handshake.wsfe.FEAuthRequest.class, false, false), 

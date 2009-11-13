@@ -9,12 +9,13 @@ import org.hibernate.cfg.Configuration;
 import afip.facturaElectronica.handshake.exceptions.SystemException;
 
 
-
+@SuppressWarnings("unchecked")
 public class HibernateSessionFactory {
 	// ----------------------------------------------------------- Variables De Instancia Estáticas
     private static final SessionFactory sessionFactory;
-    private static final ThreadLocal threadSession = new ThreadLocal();
+	private static final ThreadLocal threadSession = new ThreadLocal();
     private static final ThreadLocal threadTransaction = new ThreadLocal();
+    
 
 	// ----------------------------------------------------------- Porción Estática
     static {

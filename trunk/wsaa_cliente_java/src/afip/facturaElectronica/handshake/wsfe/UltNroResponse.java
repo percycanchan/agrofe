@@ -8,7 +8,8 @@
 package afip.facturaElectronica.handshake.wsfe;
 
 public class UltNroResponse  implements java.io.Serializable {
-    private long value;
+	private static final long serialVersionUID = -2418219484903663295L;
+	private long value;
 
     public UltNroResponse() {
     }

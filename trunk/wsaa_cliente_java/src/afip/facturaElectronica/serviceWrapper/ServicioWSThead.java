@@ -3,12 +3,12 @@ package afip.facturaElectronica.serviceWrapper;
 import java.util.List;
 
 import afip.facturaElectronica.db.Factura;
-import afip.facturaElectronica.db.TipoDeComprobantePK;
 import afip.facturaElectronica.db.commons.CompletaCAE;
 import afip.facturaElectronica.db.dao.GlobalDAO;
 import afip.facturaElectronica.handshake.wsaa.Afip_wsaa_conectar;
 import afip.facturaElectronica.handshake.wsfe.FEResponse;
 import afip.facturaElectronica.modelo.Afip_servicios;
+import afip.facturaElectronica.modelo.Comprobante;
 
 public class ServicioWSThead extends Thread  {
 
@@ -20,8 +20,7 @@ public class ServicioWSThead extends Thread  {
 		try {
 			// genero una instancia y me conecto para obtener el Token y Sign
 
-			Afip_wsaa_conectar wsaa_conectar = new Afip_wsaa_conectar();
-			wsaa_conectar.conectarWSAA();
+			Afip_wsaa_conectar.conectarWSAA();
 
 			Afip_servicios wsServicios = new Afip_servicios();
 
@@ -38,9 +37,11 @@ public class ServicioWSThead extends Thread  {
 			 * Long ultimoID = null; ultimoID = wsServicios.getUltimoID();
 			 * ultimoID.toString(); System.out.println(ultimoID);
 			 */
+			
+			Comprobante cpr = new Comprobante(33709284509L, 1, 1007);
 
 			Integer ultimoCpr = null;
-			ultimoCpr = wsServicios.getUltimoNroComprobante(1007, 6);
+			ultimoCpr = wsServicios.getUltimoNroComprobante(cpr.getTipoDeComprobante());
 			System.out.println("");
 			System.out.println(ultimoCpr);
 
@@ -99,17 +100,13 @@ public class ServicioWSThead extends Thread  {
 			 * }
 			 */
 
-			TipoDeComprobantePK tipoDeComprobante = new TipoDeComprobantePK();
-			tipoDeComprobante.setPunto_vta(1007);
-			tipoDeComprobante.setTipo_cbte(1);
-
 			List<Factura> facturas = GlobalDAO.getInstance().getFacturaDAO()
-					.getFacturas(tipoDeComprobante);
+					.getFacturas(cpr.getTipoDeComprobante().getComprobantePK());
 
 			if (facturas.size() == 0) {
 				throw new Exception("Error en cantidad");
 			} else {
-				FEResponse dato = wsServicios.enviarFacturas(facturas);
+				FEResponse dato = wsServicios.enviarFacturas(cpr, 123L);
 				dato.toString();
 
 				CompletaCAE.completarCAE(facturas, dato);

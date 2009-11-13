@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import afip.facturaElectronica.db.Factura;
 import afip.facturaElectronica.handshake.configuracion.FAConfiguracion;
 import afip.facturaElectronica.handshake.exceptions.SerializationException;
+import afip.facturaElectronica.handshake.wsfe.FEAuthRequest;
 import afip.facturaElectronica.handshake.wsfe.FECabeceraRequest;
 import afip.facturaElectronica.handshake.wsfe.FECabeceraResponse;
 import afip.facturaElectronica.handshake.wsfe.FEDetalleRequest;
@@ -26,7 +27,12 @@ public class Serializer {
 		// Seteo alias para reducir el tamaño del XML
 		serializer.alias("envio", FERequest.class);
 		serializer.alias("factura", Factura.class);
+		serializer.alias("autorizacion", FEAuthRequest.class);
+		serializer.alias("envioAFIP", XmlEnvio.class);
 
+		serializer.omitField(FEAuthRequest.class, "__hashCodeCalc");
+		serializer.omitField(FEAuthRequest.class, "token");
+		serializer.omitField(FEAuthRequest.class, "sign");
 		serializer.omitField(FECabeceraRequest.class, "__hashCodeCalc");
 		serializer.omitField(FEDetalleRequest.class, "__hashCodeCalc");
 		serializer.omitField(FERequest.class, "__hashCodeCalc");
@@ -62,29 +68,13 @@ public class Serializer {
 		serializer.setMode(XStream.ID_REFERENCES);
 	}
 
-	/*
-	 * public Container leerContainer(String path) { try { FileInputStream
-	 * stream = new FileInputStream(path); Container container =
-	 * leerContainer(stream); stream.close(); return container; } catch
-	 * (FileNotFoundException ex) { throw new
-	 * SerializationException("No se encontró el archivo " + path + ".", ex); }
-	 * catch (IOException ex) { throw new
-	 * SerializationException("No se pudo leer el archivo " + path + ".", ex); }
-	 * }
-	 * 
-	 * @SuppressWarnings("unchecked") public Container leerContainer(InputStream
-	 * stream) { try { return (Container) serializer.fromXML(stream); } catch
-	 * (Exception ex) { throw new
-	 * SerializationException("No se pudo leer correctamente el XML.", ex); } }
-	 */
-
 	// Para el XML que se le envía a la AFIP
-	public void escribirContainer(FERequest envio) {
-		String path = FAConfiguracion.getInstance().getPathXML()
-				+ envio.getFecr().getId() + "_"
-				+ envio.getFedr()[1].getTipo_cbte() + "_"
-				+ envio.getFedr()[1].getPunto_vta() + "_Envio.xml";
-
+	public void escribirContainer(FEAuthRequest feAuth, FERequest facturas) {
+		String path = FAConfiguracion.getPathXML()
+				+ facturas.getFecr().getId() + "_"
+				+ facturas.getFedr()[1].getTipo_cbte() + "_"
+				+ facturas.getFedr()[1].getPunto_vta() + "_Envio.xml";
+		XmlEnvio envio = new XmlEnvio(feAuth, facturas);
 		try {
 			FileOutputStream stream = new FileOutputStream(path);
 			escribirContainer(envio, stream);
@@ -96,7 +86,7 @@ public class Serializer {
 	}
 
 	// Escribe el archivo que se envió a la AFIP
-	public void escribirContainer(FERequest envio, OutputStream stream) {
+	public void escribirContainer(XmlEnvio envio, OutputStream stream) {
 		try {
 			serializer.toXML(envio, stream);
 		} catch (Exception ex) {
@@ -107,7 +97,7 @@ public class Serializer {
 
 	// Para el XML que se obtiene a la AFIP
 	public void escribirContainer(FEResponse respuesta) {
-		String path = FAConfiguracion.getInstance().getPathXML()
+		String path = FAConfiguracion.getPathXML()
 				+ respuesta.getFecResp().getId() + "_"
 				+ respuesta.getFedResp()[1].getTipo_cbte() + "_"
 				+ respuesta.getFedResp()[1].getPunto_vta() + "_Respuesta.xml";
@@ -131,4 +121,6 @@ public class Serializer {
 					"No se pudo escribir correctamente el XML.", ex);
 		}
 	}
+	
+
 }

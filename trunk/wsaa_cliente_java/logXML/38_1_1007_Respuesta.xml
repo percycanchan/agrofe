@@ -1,0 +1,62 @@
+<respuesta id="1">
+  <fecResp id="2">
+    <id>38</id>
+    <cuit>33709284509</cuit>
+    <fecha__cae>20091020</fecha__cae>
+    <cantidadreg>2</cantidadreg>
+    <resultado>A</resultado>
+    <motivo>00</motivo>
+    <reproceso>N</reproceso>
+    <presta__serv>1</presta__serv>
+  </fecResp>
+  <fedResp id="3">
+    <detalleRespuesta id="4">
+      <tipo__doc>80</tipo__doc>
+      <nro__doc>30707074570</nro__doc>
+      <tipo__cbte>1</tipo__cbte>
+      <punto__vta>1007</punto__vta>
+      <cbt__desde>329</cbt__desde>
+      <cbt__hasta>329</cbt__hasta>
+      <imp__total>1949.77</imp__total>
+      <imp__tot__conc>0.0</imp__tot__conc>
+      <imp__neto>1611.38</imp__neto>
+      <impto__liq>338.39</impto__liq>
+      <impto__liq__rni>0.0</impto__liq__rni>
+      <imp__op__ex>0.0</imp__op__ex>
+      <resultado>A</resultado>
+      <cae>59429589279778</cae>
+      <fecha__cbte>20091020</fecha__cbte>
+      <fecha__vto>20091030</fecha__vto>
+      <motivo>00</motivo>
+      <fecha__serv__desde>20091001</fecha__serv__desde>
+      <fecha__serv__hasta>20091031</fecha__serv__hasta>
+      <fecha__venc__pago>20091031</fecha__venc__pago>
+    </detalleRespuesta>
+    <detalleRespuesta id="5">
+      <tipo__doc>80</tipo__doc>
+      <nro__doc>30707074570</nro__doc>
+      <tipo__cbte>1</tipo__cbte>
+      <punto__vta>1007</punto__vta>
+      <cbt__desde>330</cbt__desde>
+      <cbt__hasta>330</cbt__hasta>
+      <imp__total>1949.77</imp__total>
+      <imp__tot__conc>0.0</imp__tot__conc>
+      <imp__neto>1611.38</imp__neto>
+      <impto__liq>338.39</impto__liq>
+      <impto__liq__rni>0.0</impto__liq__rni>
+      <imp__op__ex>0.0</imp__op__ex>
+      <resultado>A</resultado>
+      <cae>59429612387061</cae>
+      <fecha__cbte>20091020</fecha__cbte>
+      <fecha__vto>20091030</fecha__vto>
+      <motivo>00</motivo>
+      <fecha__serv__desde>20091001</fecha__serv__desde>
+      <fecha__serv__hasta>20091031</fecha__serv__hasta>
+      <fecha__venc__pago>20091031</fecha__venc__pago>
+    </detalleRespuesta>
+  </fedResp>
+  <RError id="6">
+    <percode>0</percode>
+    <perrmsg></perrmsg>
+  </RError>
+</respuesta>
