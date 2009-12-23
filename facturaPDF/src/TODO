@@ -1,0 +1,8 @@
+TODO:
+Realizar los gets de la DB para obtener la Descripción de los códigos
+ de Comprobantes, Documentos, Monedas, etc
+ 
+Estaría bueno agregar a FacturaJasper.getDestinoPDF()
+ un cache o algo parecido, para no estás consultando constantemente si existe el directorio.
+ Podría ser una especie de HashMap o alguna Collectio de acceso rapido, preguntar ahí y si
+ existe no ejecutar el metodo FacturaJasper.getRutaDetinoPDF()

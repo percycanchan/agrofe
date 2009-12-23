@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE hibernate-configuration PUBLIC	
+       "-//Hibernate/Hibernate Configuration DTD 3.0//EN" 
+       "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+ 
+    <session-factory>
+        <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@//127.0.0.1:1521/orcl</property>
+        <property name="hibernate.connection.username">fe_adm</property>
+        <property name="hibernate.connection.password">juliomana</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.Oracle9iDialect</property>
+        <!-- <property name="connection.pool_size">1</property> -->
+        <property name="hibernate.default_schema">FE_ADM</property>
+                   
+        <!--<property name="hibernate.current_session_context_class">thread</property>-->
+       <!-- <property name="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+        <property name="hibernate.bytecode.use_reflection_optimizer">true</property>
+       -->
+           
+        <!--<property name="hibernate.hbm2ddl.auto">create</property>-->  
+	
+        <!-- Print SQL to stdout. -->
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+
+       <!-- Configuración de Cache -->
+        <!--<property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
+        <property name="hibernate.cache.provider_configuration_file_resource_path">C:/Documents and Settings/BETY/workspace/facturaPDF/config/ehcache.xml</property>
+        <property name="hibernate.cache.use_structured_entries">true</property>
+        <property name="hibernate.cache.use_query_cache">true</property>
+	    <property name="hibernate.cache.use_second_level_cache">true</property>
+	    <property name="hibernate.generate_statistics">true</property>
+        -->
+        
+    	<!-- configuration pool via c3p0   Manejador del Pool de Conexiones--> 
+    	<property name="connection.provider_class">org.hibernate.connection.C3P0ConnectionProvider</property>
+    	<property name="hibernate.c3p0.acquire_increment">1</property> 
+    	<property name="hibernate.c3p0.idle_test_period">100</property> <!-- seconds --> 
+    	<property name="hibernate.c3p0.max_size">50</property> 
+    	<property name="hibernate.c3p0.max_statements">0</property> 
+    	<property name="hibernate.c3p0.min_size">5</property> 
+    	<property name="hibernate.c3p0.timeout">100</property> <!-- seconds -->
+    	<property name="hibernate.c3p0.numHelperThreads">3</property>     	
+    	<!-- DEPRECATED very expensive property name="hibernate.c3p0.validate>--> 
+
+        <!-- Hibernate Annotations -->
+        <mapping class="ar.com.agromayor.DB.factura.FacturaCabecera"/>
+        <mapping class="ar.com.agromayor.DB.factura.FacturaEmisor"/>
+        <mapping class="ar.com.agromayor.DB.factura.FacturaReceptor"/>
+        <mapping class="ar.com.agromayor.DB.factura.FacturaItems"/>
+        <mapping class="ar.com.agromayor.DB.factura.FacturaTotales"/>
+
+        <!-- <mapping class="archivo.factura.DatosDocumento"/> -->
+        <!-- Mapeo de la clase con PK multiple -->
+        <!--<mapping resource="TipoDeComprobante.hbm.xml" /> --> 
+    </session-factory>
+</hibernate-configuration>
