@@ -1,0 +1,30 @@
+<html t:type="marcoCpr" 
+  title="prop:pageTitle" 
+  header="prop:headerTitle"
+  headerCliente="prop:headerCliente" 
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+  xmlns:p="tapestry:parameter">
+  
+  <br/>
+  
+ pepe
+ 
+  <br/>
+  
+  <table border="1">
+     <tr><th>Fecha</th><th>Comprobante</th><th>Descargar</th></tr>
+     
+     <t:loop element="tr" source="facturaCabeceras" value="facturaCabecera">
+       <td>${facturaCabecera.cabFechaCpr}</td>
+       <td>${nombreFactura}</td>
+      <!-- <td><t:pagelink page="user/show" context="user.uid">${user.uid}</t:pagelink></td>-->
+        <td><t:actionlink t:id="linkDownload" context="facturaCabecera.cabNroInterno">Download</t:actionlink></td>
+      
+     </t:loop>
+    </table>
+     
+     
+ 
+    
+  <br/><br/>
+</html>

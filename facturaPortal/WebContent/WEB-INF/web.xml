@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app
+        PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+        "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+    <display-name> Tapestry 5 Application</display-name>
+    <context-param>
+        <param-name>tapestry.app-package</param-name>
+        <param-value>ar.com.agromayor.portal</param-value>
+    </context-param>
+    <context-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>/WEB-INF/SpringUsuario.xml</param-value>
+	</context-param>
+	<context-param>
+    	<param-name>tapestry.use-external-spring-context</param-name>
+  		<param-value>true</param-value>
+	</context-param>
+    <filter>
+        <filter-name>portal</filter-name>
+        <filter-class>org.apache.tapestry5.spring.TapestrySpringFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>portal</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <listener>
+  		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	 
+</web-app>

@@ -1,0 +1,121 @@
+div.header {
+	display: block;
+	font-weight: normal;
+	height: 100px;
+	list-style-image: none;
+	list-style-position: outside;
+	list-style-type: none;
+	padding: 10px;
+	position: relative;
+	
+	font: 10px serif, sans-serif, monospace, cursive, fantasy;
+	text-align: center;
+	background-color: silver;
+	border: thin solid gray;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	
+}
+
+div.izquierdo {
+	background: url(../imagenes/logo99x99.gif) left top no-repeat;
+	display: block;
+	float: left;
+	width: 100px;
+	height: 100px;
+	position: relative;
+}
+
+div.derecho {
+	display: block;
+	float: none;
+	position: relative;
+	
+	font-style: normal;
+	font-size:30px;
+	height: 100px;
+	
+	
+	margin-bottom: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-top: 20px;
+	
+	padding-bottom: 0px;
+	padding-left: 0px;
+	padding-right: 0px;
+	padding-top: 0px;
+	
+}
+
+body {
+	padding: 10px;
+	text-align: left;
+	font: 12px serif, sans-serif, monospace, cursive, fantasy;
+}
+
+div.imagen {
+	background: url(../imagenes/logo99x99.gif) left top no-repeat;
+	align: left;
+	display: block;
+	margin: 10px;
+	width: 100px;
+	height: 100px;
+}
+
+div.main {
+	position: relative;
+	padding-right: 30px;
+	padding: 10px;
+	background-color: lightgoldenrodyellow;
+	border: thin solid goldenrod;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	display: block;
+}
+
+div.help {
+	background-color: lightblue;
+	border: thin solid blue;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+div.footer {
+	font: 10px serif, sans-serif, monospace, cursive, fantasy;
+	text-align: center;
+	background-color: silver;
+	border: thin solid gray;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+
+
+div.login {
+	left:25%;
+	width: 230px;
+	text-align: right;
+	
+	position: relative;
+	padding: 10px;
+	margin: 10px;
+	background-color: lightgoldenrodyellow;
+	border: thin solid goldenrod;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	
+}
+
+div.loginSeparador{
+	margin: 10px;
+}
+div.loginError {
+	left:25%;
+	width: 250px;
+	font: 15px serif, sans-serif, monospace, cursive, fantasy;
+	position: relative;
+	
+	margin-left: 10px;
+	
+	
+}
