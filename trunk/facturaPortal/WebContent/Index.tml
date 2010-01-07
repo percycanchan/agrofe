@@ -1,0 +1,41 @@
+<html t:type="marco" title="prop:pageTitle" header="prop:headerTitle"
+  xmlns:t="http://tapestry.apache.org/schema/tapestry_5_1_0.xsd"
+  xmlns:p="tapestry:parameter">
+  
+  <br/>
+ <!-- 
+ <t:zone t:id="zoneLoginIncorrecto" id="zoneLoginIncorrecto" t:visible="false">
+    <div class="loginError">
+     Usuario o Password Incorrecto
+     </div>
+  </t:zone>
+   -->
+  
+
+ 
+  <!-- Form para validar usuario -->
+  <t:form t:id="loginField">
+	
+	 <div class="loginError">
+     <t:errors />
+     </div>
+     
+     <div class="login">
+	<div class="loginSeparador">
+	  <t:label for="username" />
+	  <t:textfield t:id="username" value="uname" validate="required" maxlength="8"  t:label="Cliente"/>
+	</div>
+	<div class="loginSeparador">
+	  <t:label for="passwd" />
+	  <t:PasswordField t:id="passwd" value="pass" maxlength="20" t:label="Password" t:validate="required"/>
+	</div>
+    <div class="loginSeparador">		
+	  <t:submit t:id="login" value="Login" />
+	</div>
+	</div>
+  </t:form>
+		 
+  
+    
+  <br/><br/>
+</html>

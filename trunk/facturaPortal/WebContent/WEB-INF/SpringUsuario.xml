@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+
+	<!-- Beans Usuarios para acceder a la DB -->
+	<bean id="portalUsuarios" class="ar.com.agromayor.portal.db.dao.hibernate.PortalUsuariosDAOHibernate">
+    </bean>
+
+	<bean id = "portalUsuariosDAO" class = "org.springframework.aop.framework.ProxyFactoryBean">
+        <property name = "proxyInterfaces">
+                <value>ar.com.agromayor.portal.db.dao.PortalUsuariosDAO</value>
+        </property>
+        <property name = "target">
+                <ref bean = "portalUsuarios"/>
+        </property>
+    </bean>
+    
+    <!-- Beans Comprobantes para acceder a la DB -->
+    <bean id="facturaCabecera" class="ar.com.agromayor.portal.db.dao.hibernate.FacturaCabeceraDAOHibernate">
+    </bean>
+
+	<bean id = "facturaCabeceraDAO" class = "org.springframework.aop.framework.ProxyFactoryBean">
+        <property name = "proxyInterfaces">
+                <value>ar.com.agromayor.portal.db.dao.FacturaCabeceraDAO</value>
+        </property>
+        <property name = "target">
+                <ref bean = "facturaCabecera"/>
+        </property>
+    </bean>
+    
+
+</beans>
